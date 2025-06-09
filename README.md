@@ -31,26 +31,29 @@ Compilada usando: `go build -o curl.dll -buildmode=c-shared curl.go`
 int main() {
     char* header = malloc(250);
 
-    sprintf(header, "%s\n%s", 
+    sprintf(header, "%s\n%s\n%s", 
+            Header("Accept", "application/json"), 
             Header("Content-Type", "application/json"), 
-            HeaderAuthBasic("admin", "s3cr3t")
+            HeaderAuthBasic("admin", "123456")
     );
 
-    // Hacer petición GET con los dos headers
-    char* resp = Get("http://localhost:8123/api", header, "{ \"key\": \"value\" }");
+    char* body = "{\"title\": \"foo\",\"body\": \"bar\",\"userId\": 1}";
+
+    // Hacer petición Post
+    char* resp = Post("https://jsonplaceholder.typicode.com/posts", header, body);
     
     if (resp != NULL) {
         printf("Response:\n%s\n", resp);
         free(resp);
     }
     
-    // Liberar memoria de los headers individuales
+    // Liberar memoria
     free(header);
     
     return 0;
 }
-```
 
+```
 
 ---
 
