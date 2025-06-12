@@ -8,8 +8,8 @@ Compilada usando: `go build -o curl.dll -buildmode=c-shared curl.go`
 
 | Linux | Windows |
 | --- | --- |
-| `wget https://github.com/IngenieroRicardo/curl/releases/download/1.0/curl.so` | `Invoke-WebRequest https://github.com/IngenieroRicardo/curl/releases/download/1.0/curl.dll -Outcurl ./curl.dll` |
-| `wget https://github.com/IngenieroRicardo/curl/releases/download/1.0/curl.h` | `Invoke-WebRequest https://github.com/IngenieroRicardo/curl/releases/download/1.0/curl.h -Outcurl ./curl.h` |
+| `wget https://github.com/IngenieroRicardo/curl/releases/download/2.0/curl.so` | `Invoke-WebRequest https://github.com/IngenieroRicardo/curl/releases/download/2.0/curl.dll -Outcurl ./curl.dll` |
+| `wget https://github.com/IngenieroRicardo/curl/releases/download/2.0/curl.h` | `Invoke-WebRequest https://github.com/IngenieroRicardo/curl/releases/download/2.0/curl.h -Outcurl ./curl.h` |
 
 ---
 
