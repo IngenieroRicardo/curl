@@ -8,14 +8,14 @@ import (
 	"encoding/base64"
 )
 
-func makeRequest(method, url, body, headersStr string) string{
+func makeRequest(method, url, body, headersStr string) (string, int) {
 	var goBody []byte
 	if body != "" {
 		goBody = []byte(body)
 	}
 	req, err := http.NewRequest(method, url, bytes.NewReader(goBody))
 	if err != nil {
-		return ""
+		return "", 0
 	}
 	if headersStr != "" {
 		for _, line := range strings.Split(headersStr, "\n") {
@@ -34,18 +34,18 @@ func makeRequest(method, url, body, headersStr string) string{
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		return ""
+		return "", 0
 	}
 	defer resp.Body.Close()
 	respBody, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return ""
+		return "", resp.StatusCode
 	}
-	return string(respBody)
+	return string(respBody), resp.StatusCode
 }
 
-func Header(key, value string) string{
-	header := key+": " + value
+func Header(key, value string) string {
+	header := key + ": " + value
 	return header
 }
 
@@ -61,31 +61,30 @@ func HeaderAuthBasic(user, pass string) string {
 	return header
 }
 
-func Get(url, headers, body string) string {
+func Get(url, headers, body string) (string, int) {
 	return makeRequest("GET", url, body, headers)
 }
 
-func Post(url, headers, body string) string {
+func Post(url, headers, body string) (string, int) {
 	return makeRequest("POST", url, body, headers)
 }
 
-func Put(url, headers, body string) string {
+func Put(url, headers, body string) (string, int) {
 	return makeRequest("PUT", url, body, headers)
 }
 
-func Patch(url, headers, body string) string {
+func Patch(url, headers, body string) (string, int) {
 	return makeRequest("PATCH", url, body, headers)
 }
 
-func Delete(url, headers, body string) string {
+func Delete(url, headers, body string) (string, int) {
 	return makeRequest("DELETE", url, body, headers)
 }
 
-func Head(url, headers, body string) string {
+func Head(url, headers, body string) (string, int) {
 	return makeRequest("HEAD", url, body, headers)
 }
 
-func Options(url, headers, body string) string {
+func Options(url, headers, body string) (string, int) {
 	return makeRequest("OPTIONS", url, body, headers)
 }
-
